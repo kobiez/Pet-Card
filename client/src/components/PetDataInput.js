@@ -1,37 +1,35 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 function PetDataInput() {
-    const [CardPetsList, setCardPetsList] = useState([])
-    const petCard = {
-        Name:'yoyo',
-        Age: 2 ,
-        Type:'Dog',
-        Color:'White'
-    };
+    const [CardPetsList, setCardPetsList] = useState({})
+    const [petCard, setPetCard] = useState({
+        Name: '',
+        Age: 0,
+        Type: '',
+        Color: ''
+    });
 
     function addRadio(colorValue) {
-        petCard.Color = colorValue;
+        setPetCard({ ...petCard, Color: colorValue })
     }
 
     function petName(nameValue) {
-        petCard.Name = nameValue;
+        setPetCard({ ...petCard, Name: nameValue })
     }
 
     function petAge(ageValue) {
-        petCard.Age = ageValue;
+        setPetCard({ ...petCard, Age: ageValue })
     }
-    
+
     function petType(typeValue) {
-        petCard.Type = typeValue;
+        setPetCard({ ...petCard, Type: typeValue })
     }
-    
+
     function submitCard(CardValue) {
         const newPetList = [];
         newPetList.push(CardValue)
         setCardPetsList(CardValue)
     }
-
-    const viewCard = CardPetsList.map((card) => <p> { card } </p>)
 
     return (
         <div type="submit">
@@ -46,23 +44,27 @@ function PetDataInput() {
             </div>
             <div><br></br>
                 <label for="pets"> Choose your pet: </label>
-                <select name="pets" id="pets" >
-                    <option value="Dog"  onSelect={(e) => petType(e.target.value)}>Dog</option>
-                    <option value="Cat" onSelect={(e) => petType(e.target.value)}>Cat</option>
-                    <option value="Horse" onSelect={(e) => petType(e.target.value)}>Horse</option>
-                    <option value="Other" onSelect={(e) => petType(e.target.value)}>Other</option>
+                <select name="pets" id="pets" onChange={(e) => petType(e.target.value)} >
+                    <option value="Dog" >Dog</option>
+                    <option value="Cat" >Cat</option>
+                    <option value="Horse" >Horse</option>
+                    <option value="Other" >Other</option>
                 </select>
             </div><br></br>
             <div >
-                <input type="radio" id="White" name="petColor" value="White" onChange={(e) => addRadio(e.target.value)}/>
-                <label for="White">White</label><br/>
-                <input type="radio" id="Black" name="petColor" value="Black" onChange={(e) => addRadio(e.target.value)}/>
+                <input type="radio" id="White" name="petColor" value="White" onChange={(e) => addRadio(e.target.value)} />
+                <label for="White">White</label><br />
+                <input type="radio" id="Black" name="petColor" value="Black" onChange={(e) => addRadio(e.target.value)} />
                 <label for="Black">Black</label><br></br>
             </div>
             <br></br>
             <button type='submit' onSubmit={() => submitCard(petCard)} >Add Card</button>
-            <h2>New Pet Card</h2><br></br>
-            <p>Your pet: {viewCard}</p>
+            <h2>New Pet Card</h2>
+            <h3>Your pet: </h3>
+            <p>Name: {petCard.Name} </p>
+            <p>Age: {petCard.Age} </p>
+            <p>Type: {petCard.Type} </p>
+            <p>Color: {petCard.Color} </p>
         </div>
     )
 }
