@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 function PetDataInput() {
-    const [CardPetsList, setCardPetsList] = useState({})
     const [petCard, setPetCard] = useState({
         Name: '',
         Age: 0,
@@ -25,14 +24,26 @@ function PetDataInput() {
         setPetCard({ ...petCard, Type: typeValue })
     }
 
-    function submitCard(CardValue) {
-        const newPetList = [];
-        newPetList.push(CardValue)
-        setCardPetsList(CardValue)
+    async function submitCard(cardValue) {
+        try {
+            const response = await fetch('http://localhost:8000/api/pet', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cardValue)
+            });
+            /* const data = await response.json();
+            console.log('Sending data to server: ', data) */
+        }
+        catch (err) {
+            console.error(err);
+        }
     }
 
     return (
-        <div type="submit">
+        <div >
             <div>
                 <label for="name" >My pet name is: </label>
                 <input type="text" id="name" maxLength="25" onChange={(e) => petName(e.target.value)} /> <br></br>
@@ -45,6 +56,7 @@ function PetDataInput() {
             <div><br></br>
                 <label for="pets"> Choose your pet: </label>
                 <select name="pets" id="pets" onChange={(e) => petType(e.target.value)} >
+                    <option value="noValue" >Choose</option>
                     <option value="Dog" >Dog</option>
                     <option value="Cat" >Cat</option>
                     <option value="Horse" >Horse</option>
@@ -58,13 +70,13 @@ function PetDataInput() {
                 <label for="Black">Black</label><br></br>
             </div>
             <br></br>
-            <button type='submit' onSubmit={() => submitCard(petCard)} >Add Card</button>
             <h2>New Pet Card</h2>
             <h3>Your pet: </h3>
             <p>Name: {petCard.Name} </p>
             <p>Age: {petCard.Age} </p>
             <p>Type: {petCard.Type} </p>
             <p>Color: {petCard.Color} </p>
+            <button type='submit' onClick={() => submitCard(petCard)} >Add Card</button>
         </div>
     )
 }
