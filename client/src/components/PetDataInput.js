@@ -34,8 +34,6 @@ function PetDataInput() {
                 },
                 body: JSON.stringify(cardValue)
             });
-            /* const data = await response.json();
-            console.log('Sending data to server: ', data) */
         }
         catch (err) {
             console.error(err);
