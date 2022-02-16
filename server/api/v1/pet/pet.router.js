@@ -1,23 +1,9 @@
 const express = require('express');
-const petModel = require('../db/model/pet.model');
+const petController = require('./pet.controller');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-    try {
-        const card = new petModel({
-            Name: req.body.Name,
-            Age: req.body.Age,
-            Type: req.body.Type,
-            Color: req.body.Color
-        })
-        const savedCard = await card.save()
-
-        res.send(card)
-
-    } catch (err) {
-        console.error(err);
-    }
-})
+router.post('/', petController.createPet);
+router.get('/', petController.getAllPets);
 
 module.exports = router;
