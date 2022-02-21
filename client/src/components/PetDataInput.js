@@ -26,7 +26,7 @@ function PetDataInput() {
 
     async function submitCard(cardValue) {
         try {
-            const response = await fetch('http://localhost:8000/api/pet', {
+            const response = await fetch('http://localhost:8000/api/v1/pet', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -34,8 +34,6 @@ function PetDataInput() {
                 },
                 body: JSON.stringify(cardValue)
             });
-            /* const data = await response.json();
-            console.log('Sending data to server: ', data) */
         }
         catch (err) {
             console.error(err);

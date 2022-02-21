@@ -1,21 +1,10 @@
-const express = require('express');
-const cors = require('cors')
+require('dotenv').config();
 
-const app = express();
-const port = 8000;
+const MongoService = require('./services/db.service');
+MongoService.connectToDb(process.env.DB_CONNECTION);
 
-app.use(cors())
-app.use(express.json())
+const app = require('./app');
 
-const petList = [];
-
-app.post('/api/pet', (req, res) => {
-    const petInput = req.body;
-    petList.push(petInput)
-    console.log(petList)
-    res.send('New pet card recieved!!')
-})
-
-app.listen(port, () => {
-    console.log(`Server is up on port: ${port}`)
-})
+app.listen(process.env.LOCAL_PORT, () => {
+    console.log(`Server is up on port: ${process.env.LOCAL_PORT}`)
+});
