@@ -1,45 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function PetDataInput() {
-    const [petCard, setPetCard] = useState({
-        Name: '',
-        Age: 0,
-        Type: '',
-        Color: ''
-    });
-
-    function addRadio(colorValue) {
-        setPetCard({ ...petCard, Color: colorValue })
-    }
-
-    function petName(nameValue) {
-        setPetCard({ ...petCard, Name: nameValue })
-    }
-
-    function petAge(ageValue) {
-        setPetCard({ ...petCard, Age: ageValue })
-    }
-
-    function petType(typeValue) {
-        setPetCard({ ...petCard, Type: typeValue })
-    }
-
-    async function submitCard(cardValue) {
-        try {
-            const response = await fetch('http://localhost:8000/api/v1/pet', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(cardValue)
-            });
-        }
-        catch (err) {
-            console.error(err);
-        }
-    }
-
+function PetDataInput({ addRadio, petName, petAge, petType, submitCard, Name, Age, Type, Color, petCard }) {
     return (
         <div >
             <div>
@@ -70,10 +31,10 @@ function PetDataInput() {
             <br></br>
             <h2>New Pet Card</h2>
             <h3>Your pet: </h3>
-            <p>Name: {petCard.Name} </p>
-            <p>Age: {petCard.Age} </p>
-            <p>Type: {petCard.Type} </p>
-            <p>Color: {petCard.Color} </p>
+            <p>Name: {Name} </p>
+            <p>Age: {Age} </p>
+            <p>Type: {Type} </p>
+            <p>Color: {Color} </p>
             <button type='submit' onClick={() => submitCard(petCard)} >Add Card</button>
         </div>
     )

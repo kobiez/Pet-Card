@@ -2,6 +2,18 @@
   text-align: center;
 }
 
+h1 {
+  color: rgb(37, 139, 235);
+  font-size: 80px;
+}
+
+h2 {
+  color: orangered;
+}
+
+h3 {
+  color: purple;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
